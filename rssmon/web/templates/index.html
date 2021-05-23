@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hi this is index.html
+{% endblock %}
+
+{% block h1 %}
+Добро пожаловать! Главная страница
+{% endblock %}
+
+{% block article %}
+
+   <article class="main__content">
+	Добро пожаловать! вы в артикле!
+	<form action="/run_show" method="POST">
+	<input type="hidden" name="index" value="RUN">
+	<input type="submit" class="btn btn-dark" value="RUN!">
+	DontUseIt; WIP
+	</form>
+	
+   </article>
+
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+

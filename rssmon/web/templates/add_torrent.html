@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hi this is add_show.html
+{% endblock %}
+
+{% block h1 %}
+Добро пожаловать!
+{% endblock %}
+
+{% block article %}
+   <article class="main__content">
+
+<form method="POST">
+  <div class="form-group">
+    <label for="formGroupExampleInput">Name client</label>
+    <input type="text" class="form-control" name="settorr_clientName" id="formGroupExampleInput" placeholder="qbittorrent">
+  </div>
+  <div class="row">
+    <div class="col">
+      <input type="text" name="settorr_uri" class="form-control" placeholder="Hostname: https://qbittorr.traefik.home.lab/">
+      <input type="text" name="settorr_username" class="form-control" placeholder="Username: admin">
+      <input type="text" name="settorr_category" class="form-control" placeholder="Category: rssmon">
+    </div>
+    <div class="col">
+      <input type="text" name="settorr_port" class="form-control" placeholder="Port: 80">
+      <input type="text" name="settorr_password" class="form-control" placeholder="Password: admin">
+      <input type="text" name="settorr_downloadPath" class="form-control" placeholder="downloadPath: /downloads/rssmon/">
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-dark" value="Send">
+  </div>
+</form>
+
+   </article>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+

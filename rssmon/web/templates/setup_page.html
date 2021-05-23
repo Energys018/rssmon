@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hi this is setup_page.html
+{% endblock %}
+
+{% block h1 %}
+Добро пожаловать! Страница настроек
+{% endblock %}
+
+{% block nav_content %}
+<a href="/add_torrent" class="btn btn-info">Add Torrents</a>
+{% endblock %}
+
+{% block article %}
+
+   <article class="main__content">
+Добро пожаловать! Это настройки торрент клиента
+<table class="table table-sm table-dark table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">clientName</th>
+      <th scope="col">username</th>
+      <th scope="col">password</th>
+      <th scope="col">uri</th>
+      <th scope="col">category</th>
+      <th scope="col">downloadPath</th>
+      <th scope="col">Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+	{% for element in listtorrent_client %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ element.id }}</th>
+      <td>{{ element.settorr_clientName }}</td>
+      <td>{{ element.settorr_username }}</td>
+      <td>{{ element.settorr_password }}</td>
+      <td>{{ element.settorr_uri }}:{{ element.settorr_port }}</td>
+      <td>{{ element.settorr_category }}</td>
+      <td>{{ element.settorr_downloadPath }}</td>
+      <td>{{ element.settorr_date }}</td>
+      <td> <a href="/detail/setTorrents/{{ element.id }}" class="btn btn-secondary">Detail</a>  <a href="/delete/setTorrents/{{ element.id }}" class="btn btn-outline-dark">Delete</a> </td>
+    </tr>
+  </tbody>
+	{% endfor %}
+</table>
+Добро пожаловать! Это еще какието настройки
+   </article>
+
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+

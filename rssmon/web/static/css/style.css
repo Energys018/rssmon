@@ -1,0 +1,36 @@
+body {
+	margin: 0;
+	font-size:24px;
+}
+.container {
+	display: flex;
+	min-height: 65%;
+}
+.main {
+	flex-grow: 1;
+	order: 2;
+}
+nav, .sidebar {
+	background-color: #a4c0f3;
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: 15%;
+}
+nav {
+	order: 1;
+}
+.sidebar {
+	order: 3;
+}
+header, footer, nav, .sidebar, .main {
+	text-align:center;
+	padding: 20px;
+}
+header {
+	background-color: #638fe0;
+	height: 15%;
+}
+footer {
+	background-color: #638fe0;
+	height: 10%;
+}

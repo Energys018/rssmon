@@ -1,0 +1,30 @@
+body, html
+{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: arial;
+    font-siz: 16px;
+}
+
+.wrapper
+{
+    width: 100%;
+}
+
+.header
+{
+    background: #ccc;
+}
+
+.header__content
+{
+    padding: 5px;
+}
+
+.main__content
+{
+    width: 80%;
+    margin: 0 auto;
+}

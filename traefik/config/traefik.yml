@@ -1,0 +1,30 @@
+api:
+  dashboard: true
+
+entryPoints:
+  http:
+    address: ":80/tcp"
+  https:
+    address: ":443/tcp"
+  tcp-qbittorrent:
+    address: ":6881/tcp"
+  udp-qbittorrent:
+    address: ":6881/udp"
+metrics:
+  prometheus:
+    manualRouting: true
+providers:
+  docker:
+    network: tophat_test_internal_proxy
+  file:
+    directory: /custom
+    watch: true
+log:
+        #level: "DEBUG"
+  level: "ERROR"
+  #accessLog:
+  #bufferingSize: 100
+  #filters:    
+  #  statusCodes:
+  #    - "300-302"
+  #  minDuration: "10ms"

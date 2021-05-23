@@ -1,0 +1,88 @@
+version: '3.3'
+
+volumes:  
+  qbittorrent_downloads: {}
+  qbittorrent_sortedLF: {}
+  qbittorrent_config: {}
+  qbittorrent_films: {}
+  qbittorrent_media: {}
+services:
+
+  ##### --> HTTP, TCP, UDP Reverse Proxy <--####
+  traefik:
+    image: traefik:latest
+    #container_name: THM_traefik
+    restart: always
+    ports:
+      - '80:80/tcp'
+      - '443:443/tcp'
+    networks:
+      - internal_proxy
+    volumes:
+      - ./traefik/config/traefik.yml:/traefik.yml
+      - ./traefik/custom/:/custom/
+      - ./traefik/certs/:/certs/
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard-http.rule=Host(`dashboard.${HTTP_TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.dashboard-http.entrypoints=http #- traefik.http.routers.dashboard-http.entrypoints=https
+      - traefik.http.routers.dashboard-http.service=api@internal
+        #- traefik.http.routers.dashboard-http.tls=true
+      #### SSL Setup ####
+      #- traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)
+      #- traefik.http.routers.http-catchall.entrypoints=http
+      #- traefik.http.routers.http-catchall.middlewares=testHeader
+      #- traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      #- traefik.http.middlewares.testHeader.headers.framedeny=true
+      #- traefik.http.middlewares.testHeader.headers.sslredirect=true
+      #
+
+  ##### --> Media <--####
+  rssmon:
+    build: ./rssmon/
+    expose:
+      - "5000/tcp"
+    networks:
+      - internal_proxy
+    depends_on:
+      - traefik
+      - qbittorrent
+    volumes:
+      - './rssmon/web/db:/tmp/' #sqllite
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rssmon-http.rule=Host(`rssmon.${HTTP_TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.rssmon-http.entrypoints=http
+        #- traefik.http.routers.rssmon-http.tls=true
+
+  qbittorrent:
+    build: ./qbittorrent/
+    #container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - WEBUI_PORT=8080
+    depends_on:
+      - traefik
+    volumes:
+      - qbittorrent_downloads:/downloads
+      - qbittorrent_sortedLF:/sorted
+      - qbittorrent_config:/config
+      - qbittorrent_films:/films
+      - qbittorrent_media:/media
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qbittorrent-http.rule=Host(`qbittorr.${HTTP_TRAEFIK_DOMAIN}`)
+        #- traefik.http.routers.qbittorrent-http.tls=true
+      - traefik.http.routers.qbittorrent-http.entrypoints=http #- traefik.http.routers.qbittorrent-http.entrypoints=https
+    expose:
+      - '8080/tcp'
+    networks:
+      - internal_proxy
+    restart: always
+
+networks:
+  internal_proxy:

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    		{% block css %}{% endblock %}
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/dark.css') }}">
+        	{% block title %}{% endblock %}
+	</head>
+	<body>
+	<div class="wrapper">
+		<header class="header">
+		<div class="header__content">
+        	{% block h1 %}{% endblock %}
+   			<nav class="nav">
+   				<div class="nav__content">
+   					<a href="/" class="btn btn-primary">Home</a>
+   					<a href="/rssmon_page" class="btn btn-primary">RSSMon</a>
+   					<a href="/setup_page" class="btn btn-primary">Setup</a>
+   					<a href="/contacts" class="btn btn-primary">Contacts</a>
+        				{% block nav_content %}{% endblock %}
+   				</div>
+   				</div>
+   			</nav>
+   		</div>
+   		</header>
+   		<main class="main">
+        		{% block article %}{% endblock %}
+   		</main>
+   	</div>
+	</body>
+</html>

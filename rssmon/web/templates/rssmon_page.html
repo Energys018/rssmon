@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hi this is index.html
+{% endblock %}
+
+{% block h1 %}
+Добро пожаловать! Главная страница
+{% endblock %}
+
+{% block nav_content %}
+{% endblock %}
+
+{% block article %}
+   <article class="main__content">
+
+<form method="POST">
+  <div class="form-row">
+
+    <div class="col-7">
+      <input type="text" name="tv_name" class="form-control" placeholder="Имя сериала">
+    </div>
+
+    <div class="col">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                <input type="radio" name="tv_resolution" id="option" autocomplete="off" value="1080p" checked > 1080p
+                </label>
+                <label class="btn btn-secondary">
+                <input type="radio" name="tv_resolution" id="option" autocomplete="off" value="720p" > 720p
+                </label>
+                <label class="btn btn-secondary">
+                <input type="radio" name="tv_resolution" id="option" autocomplete="off" value="320p" > 320p
+                </label>
+    </div>
+        <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+  </div>
+</form>
+
+<table class="table table-sm table-dark table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ShowName</th>
+      <th scope="col">ShowAddDate</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+	{% for show in listshow %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ show.id }}</th>
+      <td>{{ show.tvShow_name }}:{{ show.tvShow_resolution }}</td>
+      <td>{{ show.tvShow_date }}</td>
+      <td> <center> 
+		    <a href="/detail/runShow/{{ show.id }}" class="btn btn-secondary">Run</a> 
+		    <a href="/detail/tvShows/{{ show.id }}" class="btn btn-secondary">Detail</a>  
+		    <a href="/delete/tvShows/{{ show.id }}" class="btn btn-outline-dark">Delete</a> 
+	   </center> 
+      </td>
+    </tr>
+  </tbody>
+	{% endfor %}
+</table>
+
+   </article>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
